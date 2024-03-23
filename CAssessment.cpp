@@ -1,16 +1,22 @@
-//
-// Created by Sudharaka Fernando on 23/03/2024.
-//
+// CAssessment.cpp
 
 #include "CAssessment.h"
 
-CAssessment::CAssessment(int type, const std::string& name, int motiveCost, int achievement)
-        : CSpace(type, name), mMotiveCost(motiveCost), mAchievement(achievement) {}
+CAssessment::CAssessment(int type, const std::string& name, int cost, int achievement)
+        : CSpace(type, name), mMotivationalCost(cost), mAchievement(achievement), mCompleted(false) {}
 
-int CAssessment::GetMotivationCost() const {
-    return mMotiveCost;
+int CAssessment::GetMotivationalCost() const {
+    return mMotivationalCost;
 }
 
 int CAssessment::GetAchievement() const {
     return mAchievement;
+}
+
+bool CAssessment::IsCompleted() const {
+    return mCompleted;
+}
+
+void CAssessment::SetCompleted(bool completed) {
+    mCompleted = completed;
 }

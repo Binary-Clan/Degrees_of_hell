@@ -1,6 +1,4 @@
-//
-// Created by Sudharaka Fernando on 22/03/2024.
-//
+// CPlayer.cpp
 
 #include "CPlayer.h"
 #include <iostream>
@@ -41,13 +39,12 @@ void CPlayer::Spin() {
 
 void CPlayer::Move(int spaces) {
     mPosition += spaces;
-    if(mPosition>36) {
-        mPosition = mPosition - 36;
+    if(mPosition > 36) {
+        mPosition -= 36;
         IncrementYear();
         IncreaseMotivation(250);
-        std::cout <<this->mName<<" attends Welcome Week and starts year "<< this->mYear<< " more motivated!" << std::endl;
+        std::cout << mName << " attends Welcome Week and starts year " << mYear << " more motivated!" << std::endl;
     }
-
 }
 
 void CPlayer::IncreaseMotivation(int value) {
@@ -58,3 +55,6 @@ void CPlayer::IncrementYear() {
     mYear++;
 }
 
+void CPlayer::IncreaseSuccess(int value) {
+    mSuccess += value;
+}

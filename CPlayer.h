@@ -1,6 +1,4 @@
-//
-// Created by Sudharaka Fernando on 22/03/2024.
-//
+// CPlayer.h
 
 #ifndef DEGREES_OF_HELL_CPLAYER_H
 #define DEGREES_OF_HELL_CPLAYER_H
@@ -26,7 +24,7 @@ public:
     void Move(int spaces);
     void IncreaseMotivation(int value);
     void IncrementYear();
+    void IncreaseSuccess(int value); // Added method
 };
-
 
 #endif //DEGREES_OF_HELL_CPLAYER_H
