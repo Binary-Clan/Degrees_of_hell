@@ -14,8 +14,9 @@ private:
 
 public:
     CSpace(int type, const std::string& name);
-    int getType() const;
-    std::string getName() const;
+    virtual ~CSpace();
+    int GetType() const;
+    std::string GetName() const;
 };
 
 #endif //DEGREES_OF_HELL_CSPACE_H

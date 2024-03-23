@@ -67,6 +67,12 @@ build CMakeFiles/Degrees_of_Hell.dir/CPlayer.cpp.obj: CXX_COMPILER__Degrees_of_H
   OBJECT_DIR = CMakeFiles\Degrees_of_Hell.dir
   OBJECT_FILE_DIR = CMakeFiles\Degrees_of_Hell.dir
 
+build CMakeFiles/Degrees_of_Hell.dir/CAssessment.cpp.obj: CXX_COMPILER__Degrees_of_Hell_Debug E$:/Projects/Degrees$ of$ Hell/CAssessment.cpp || cmake_object_order_depends_target_Degrees_of_Hell
+  DEP_FILE = CMakeFiles\Degrees_of_Hell.dir\CAssessment.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\Degrees_of_Hell.dir
+  OBJECT_FILE_DIR = CMakeFiles\Degrees_of_Hell.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Degrees_of_Hell
@@ -75,7 +81,7 @@ build CMakeFiles/Degrees_of_Hell.dir/CPlayer.cpp.obj: CXX_COMPILER__Degrees_of_H
 #############################################
 # Link the executable Degrees_of_Hell.exe
 
-build Degrees_of_Hell.exe: CXX_EXECUTABLE_LINKER__Degrees_of_Hell_Debug CMakeFiles/Degrees_of_Hell.dir/main.cpp.obj CMakeFiles/Degrees_of_Hell.dir/CSpace.cpp.obj CMakeFiles/Degrees_of_Hell.dir/CPlayer.cpp.obj
+build Degrees_of_Hell.exe: CXX_EXECUTABLE_LINKER__Degrees_of_Hell_Debug CMakeFiles/Degrees_of_Hell.dir/main.cpp.obj CMakeFiles/Degrees_of_Hell.dir/CSpace.cpp.obj CMakeFiles/Degrees_of_Hell.dir/CPlayer.cpp.obj CMakeFiles/Degrees_of_Hell.dir/CAssessment.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Degrees_of_Hell.dir

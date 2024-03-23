@@ -17,15 +17,15 @@ private:
 
 public:
     CPlayer(const std::string& name);
-    std::string getName() const;
-    int getMotivation() const;
-    int getSuccess() const;
-    int getPosition() const;
-    int getYear() const;
-    void spin();
-    void move(int spaces);
-    void increaseMotivation(int value);
-    void incrementYear();
+    std::string GetName() const;
+    int GetMotivation() const;
+    int GetSuccess() const;
+    int GetPosition() const;
+    int GetYear() const;
+    void Spin();
+    void Move(int spaces);
+    void IncreaseMotivation(int value);
+    void IncrementYear();
 };
 
 

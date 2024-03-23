@@ -6,11 +6,13 @@
 
 CSpace::CSpace(int type, const std::string& name) : mType(type), mName(name) {}
 
-int CSpace::getType() const {
+CSpace::~CSpace() {}
+
+int CSpace::GetType() const {
     return mType;
 }
 
-std::string CSpace::getName() const {
-    std::cout << "Getting name for space: " << mName << std::endl;
+std::string CSpace::GetName() const {
+//    std::cout << "Getting name for space: " << mName << std::endl;
     return mName;
 }
