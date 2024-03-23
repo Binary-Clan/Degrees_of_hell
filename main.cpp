@@ -46,13 +46,13 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
     try {
         std::ifstream file(filename);
         if (file.is_open()) {
-            std::cout << "File opened" << std::endl;
+//            std::cout << "File opened" << std::endl;
             int type;
             std::string name;
             while (file >> type) {
                 std::getline(file >> std::ws, name); // Read the rest of the line as name
-                std::cout << "Reading space: " << name << std::endl;
-                std::cout << "Reading type: " << type << std::endl;
+//                std::cout << "Reading space: " << name << std::endl;
+//                std::cout << "Reading type: " << type << std::endl;
                 if (type == 1) {
                     int cost, achievement, year;
                     std::string first,second;
