@@ -8,40 +8,6 @@
 #include <sstream>
 #include <memory> // Include memory header for smart pointers
 
-void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
-    try {
-        std::ifstream file(filename);
-        if (file.is_open()) {
-            std::cout << "File opened" << std::endl;
-            int type;
-            std::string name;
-            while (file >> type) {
-                std::getline(file >> std::ws, name); // Read the rest of the line as name
-                std::cout << "Reading space: " << name << std::endl;
-                std::cout << "Reading type: " << type << std::endl;
-                if (type == 1) {
-                    int cost, achievement, year;
-                    std::string first, second;
-                    std::istringstream iss(name);
-                    iss >> first >> second >> cost >> achievement >> year;
-                    name = first + " " + second;
-                    // Create and store a pointer to CAssessment object
-                    spaces.push_back(new CAssessment(type, name, cost, achievement));
-                } else {
-                    // Create and store a pointer to CSpace object
-                    spaces.push_back(new CSpace(type, name));
-                }
-            }
-            file.close();
-        } else {
-            throw std::runtime_error("Unable to open file: " + filename);
-        }
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
-}
-
-//
 //void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
 //    try {
 //        std::ifstream file(filename);
@@ -55,15 +21,15 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
 //                std::cout << "Reading type: " << type << std::endl;
 //                if (type == 1) {
 //                    int cost, achievement, year;
-//                    std::string first,second;
+//                    std::string first, second;
 //                    std::istringstream iss(name);
 //                    iss >> first >> second >> cost >> achievement >> year;
 //                    name = first + " " + second;
-//                    CAssessment* assessment = new CAssessment(type, name, cost, achievement);
-//                    spaces.push_back(assessment);
+//                    // Create and store a pointer to CAssessment object
+//                    spaces.push_back(new CAssessment(type, name, cost, achievement));
 //                } else {
-//                    CSpace* space = new CSpace(type, name);
-//                    spaces.push_back(space);
+//                    // Create and store a pointer to CSpace object
+//                    spaces.push_back(new CSpace(type, name));
 //                }
 //            }
 //            file.close();
@@ -74,6 +40,40 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
 //        std::cerr << e.what() << std::endl;
 //    }
 //}
+
+
+void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
+    try {
+        std::ifstream file(filename);
+        if (file.is_open()) {
+            std::cout << "File opened" << std::endl;
+            int type;
+            std::string name;
+            while (file >> type) {
+                std::getline(file >> std::ws, name); // Read the rest of the line as name
+                std::cout << "Reading space: " << name << std::endl;
+                std::cout << "Reading type: " << type << std::endl;
+                if (type == 1) {
+                    int cost, achievement, year;
+                    std::string first,second;
+                    std::istringstream iss(name);
+                    iss >> first >> second >> cost >> achievement >> year;
+                    name = first + " " + second;
+                    CAssessment* assessment = new CAssessment(type, name, cost, achievement);
+                    spaces.push_back(assessment);
+                } else {
+                    CSpace* space = new CSpace(type, name);
+                    spaces.push_back(space);
+                }
+            }
+            file.close();
+        } else {
+            throw std::runtime_error("Unable to open file: " + filename);
+        }
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
 
 int main() {
     // Read spaces from file
