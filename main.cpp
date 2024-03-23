@@ -94,7 +94,7 @@ int main() {
 
         // Player 1 turn
         player1.Spin();
-        CSpace* currentSpace1 = spaces[player1.GetPosition()];
+        CSpace* currentSpace1 = spaces[player1.GetPosition()-1];
         std::cout << player1.GetName() << " lands on " << currentSpace1->GetName() << std::endl;
         if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace1)) {
             if (!assessment->IsCompleted()) {
@@ -171,7 +171,7 @@ int main() {
     }
 
     // Game Over
-    std::cout << "Game Over" << std::endl;
+    std::cout << "\n\nGame Over" << std::endl;
     std::cout << player1.GetName() << " has achieved " << player1.GetSuccess() << std::endl;
     std::cout << player2.GetName() << " has achieved " << player2.GetSuccess() << std::endl;
     if (player1.GetSuccess() > player2.GetSuccess()) {
