@@ -7,11 +7,14 @@
 
 class CSpace {
 private:
-    int mType;
+    int mType{};
     std::string mName;
 
 public:
     CSpace(int type, const std::string& name);
+
+    CSpace();
+
     virtual ~CSpace();
     int GetType() const;
     std::string GetName() const;

@@ -62,3 +62,11 @@ void CPlayer::IncreaseSuccess(int value) {
 void CPlayer::SetPosition(int position) {
     mPosition = position;
 }
+
+bool CPlayer::IsActivityCompleted() {
+    return false;
+}
+
+void CPlayer::SetActivityCompleted(bool b) {
+
+}

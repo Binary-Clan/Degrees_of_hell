@@ -11,6 +11,9 @@ private:
     int mAchievement;
     bool mCompleted;
 
+protected:
+    CAssessment(int i, const std::string basicString);
+
 public:
     CAssessment(int type, const std::string& name, int cost, int achievement);
     int GetMotivationalCost() const;

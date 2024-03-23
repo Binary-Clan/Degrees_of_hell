@@ -25,3 +25,7 @@ void CAssessment::ApplyEffect(CPlayer &player) {
    int position = player.GetPosition();
 }
 
+CAssessment::CAssessment(int i, const std::string basicString) {
+
+}
+

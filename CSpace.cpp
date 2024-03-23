@@ -3,7 +3,7 @@
 
 CSpace::CSpace(int type, const std::string& name) : mType(type), mName(name) {}
 
-CSpace::~CSpace() {}
+CSpace::~CSpace() = default;
 
 int CSpace::GetType() const {
     return mType;
@@ -16,3 +16,5 @@ std::string CSpace::GetName() const {
 void CSpace::ApplyEffect(CPlayer &player) {
 
 }
+
+CSpace::CSpace() = default;

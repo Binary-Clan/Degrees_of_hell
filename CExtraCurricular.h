@@ -2,12 +2,15 @@
 #define DEGREES_OF_HELL_CEXTRACURRICULAR_H
 
 #include "CSpace.h"
+#include "CAssessment.h"
 
-class CExtraCurricular : public CSpace {
+class CExtraCurricular : public  CAssessment{
 public:
     CExtraCurricular(int type, const std::string& name);
     ~CExtraCurricular() override;
     void ApplyEffect(CPlayer& player) override;
+
+//    static void ApplyEffect(CPlayer &player, CPlayer &otherPlayer);
 };
 
 #endif //DEGREES_OF_HELL_CEXTRACURRICULAR_H

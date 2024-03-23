@@ -26,6 +26,9 @@ public:
     void IncreaseMotivation(int value);
     void IncrementYear();
     void IncreaseSuccess(int value); // Added method
+    bool IsActivityCompleted();
+
+    void SetActivityCompleted(bool b);
 };
 
 #endif //DEGREES_OF_HELL_CPLAYER_H

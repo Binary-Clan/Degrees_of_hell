@@ -153,7 +153,38 @@ void SimulatePlayerTurn(CPlayer& player, std::vector<CSpace *> spaces, CPlayer& 
         } else {
             std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
         }
-    } else {
+    }else if(auto* extraCurricular = dynamic_cast<CExtraCurricular*>(currentSpace)) {
+        if (!extraCurricular->IsCompleted()) {
+            if (player.GetMotivation() >= extraCurricular->GetMotivationalCost()) {
+                player.IncreaseMotivation(-100);
+//                player.IncreaseSuccess(assessment->GetAchievement());
+                extraCurricular->SetCompleted(true);
+
+//                std::cout << player.GetName() << " completes " << currentSpace->GetName()
+//                          << " for " << assessment->GetMotivationalCost()
+//                          << " and achieves " << assessment->GetAchievement() << std::endl;
+            } else {
+                // Ask for help
+//                std::cout << player.GetName() << " asks for help with " << currentSpace->GetName() << std::endl;
+                const int kExtraCurricularCost = 100;
+                int helpCost = kExtraCurricularCost / 2;
+//                int helpAchievement = assessment->GetAchievement() / 2;
+                if (otherPlayer.GetMotivation() >= helpCost) {
+                    player.IncreaseMotivation(-helpCost);
+                    otherPlayer.IncreaseMotivation(helpCost+kExtraCurricularCost);
+//                    player.IncreaseSuccess(helpAchievement);
+//                    otherPlayer.IncreaseSuccess(helpAchievement);
+                    std::cout<< player.GetName() << "motivates" << otherPlayer.GetName() << "by joining their activity" << std::endl;
+//                    std::cout << otherPlayer.GetName() << " helps and achieves " << helpAchievement << std::endl;
+                } else {
+                    std::cout << otherPlayer.GetName() << " cannot help due to low motivation" << std::endl;
+                }
+            }
+        } else {
+            std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
+        }
+    }
+    else {
         // Apply effect of the space using polymorphism
         currentSpace->ApplyEffect(player);
 //        std::cout << "Nothing happens" << std::endl;
