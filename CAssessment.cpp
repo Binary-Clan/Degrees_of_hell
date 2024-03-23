@@ -20,3 +20,8 @@ bool CAssessment::IsCompleted() const {
 void CAssessment::SetCompleted(bool completed) {
     mCompleted = completed;
 }
+
+void CAssessment::ApplyEffect(CPlayer &player) {
+   int position = player.GetPosition();
+}
+

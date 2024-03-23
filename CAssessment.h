@@ -17,6 +17,7 @@ public:
     int GetAchievement() const;
     bool IsCompleted() const;
     void SetCompleted(bool completed);
+    void ApplyEffect(CPlayer& player) override;
 };
 
 #endif //DEGREES_OF_HELL_CASSESSMENT_H

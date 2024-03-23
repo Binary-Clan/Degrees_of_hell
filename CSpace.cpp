@@ -12,3 +12,7 @@ int CSpace::GetType() const {
 std::string CSpace::GetName() const {
     return mName;
 }
+
+void CSpace::ApplyEffect(CPlayer &player) {
+
+}

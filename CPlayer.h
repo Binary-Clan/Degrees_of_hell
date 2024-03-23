@@ -18,6 +18,7 @@ public:
     std::string GetName() const;
     int GetMotivation() const;
     int GetSuccess() const;
+    void SetPosition(int position);
     int GetPosition() const;
     int GetYear() const;
     void Spin();

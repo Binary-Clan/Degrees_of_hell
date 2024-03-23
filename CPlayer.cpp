@@ -58,3 +58,7 @@ void CPlayer::IncrementYear() {
 void CPlayer::IncreaseSuccess(int value) {
     mSuccess += value;
 }
+
+void CPlayer::SetPosition(int position) {
+    mPosition = position;
+}

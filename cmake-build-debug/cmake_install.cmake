@@ -1,4 +1,4 @@
-# Install script for directory: E:/CP Creations/Assignments/C++ Assignment/C++ Assignment/Project/Degrees_of_hell
+# Install script for directory: E:/projects/Degrees_of_hell
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/User/AppData/Local/Programs/CLion/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Users/Acer/AppData/Local/Programs/CLion/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "E:/CP Creations/Assignments/C++ Assignment/C++ Assignment/Project/Degrees_of_hell/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "E:/projects/Degrees_of_hell/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
