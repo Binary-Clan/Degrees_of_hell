@@ -7,6 +7,8 @@
 #include "CSpace.h"
 #include "CPlayer.h"
 #include "CAssessment.h"
+#include "CBogus.h"
+#include "CBonus.h"
 
 void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
     try {
@@ -27,7 +29,15 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
                     name = first + " " + second;
                     CAssessment* assessment = new CAssessment(type, name, cost, achievement);
                     spaces.push_back(assessment);
-                } else {
+
+                } else if(type == 4) {
+                    CBonus* bonus = new CBonus(type, name);
+                    spaces.push_back(bonus);
+
+                } else if(type == 5) {
+                    CBogus* bogus = new CBogus(type, name);
+                    spaces.push_back(bogus);
+                }else{
                     CSpace* space = new CSpace(type, name);
                     spaces.push_back(space);
                 }
