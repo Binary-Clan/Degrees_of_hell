@@ -25,7 +25,9 @@ public:
     void Spin();
     void Move(int spaces);
     void IncreaseMotivation(int value);
+    void DecreaseMotivation(int value);
     void IncrementYear();
+    int GetSpin();
 };
 
 

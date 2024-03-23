@@ -3,4 +3,4 @@ project(Degrees_of_Hell)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Degrees_of_Hell main.cpp CSpace.h CSpace.cpp CPlayer.cpp CPlayer.h degrees.txt CAssessment.cpp CAssessment.h)
+add_executable(Degrees_of_Hell main.cpp CSpace.h CSpace.cpp CPlayer.cpp CPlayer.h degrees.txt CAssessment.cpp CAssessment.h CBonus.cpp CBonus.h CBogus.cpp CBogus.h)
