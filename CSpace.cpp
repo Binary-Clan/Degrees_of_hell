@@ -1,8 +1,5 @@
-//
-// Created by Sudharaka Fernando on 22/03/2024.
-//
+// CSpace.cpp
 #include "CSpace.h"
-#include <iostream>
 
 CSpace::CSpace(int type, const std::string& name) : mType(type), mName(name) {}
 
@@ -13,6 +10,5 @@ int CSpace::GetType() const {
 }
 
 std::string CSpace::GetName() const {
-//    std::cout << "Getting name for space: " << mName << std::endl;
     return mName;
 }

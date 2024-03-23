@@ -1,7 +1,4 @@
-//
-// Created by Sudharaka Fernando on 22/03/2024.
-//
-
+// CSpace.h
 #ifndef DEGREES_OF_HELL_CSPACE_H
 #define DEGREES_OF_HELL_CSPACE_H
 
