@@ -33,6 +33,10 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
                 } else if(type == 4) {
                     CBonus* bonus = new CBonus(type, name);
                     spaces.push_back(bonus);
+
+                } else if(type == 5) {
+                    CBogus* bogus = new CBogus(type, name);
+                    spaces.push_back(bogus);
                 }else{
                     CSpace* space = new CSpace(type, name);
                     spaces.push_back(space);
