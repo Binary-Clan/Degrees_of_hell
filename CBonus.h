@@ -18,7 +18,7 @@ private:
 public:
     CBonus(int type, const std::string name);
     virtual ~CBonus() {};
-    virtual void PerformAction(CPlayer& player)  override;
+    void PerformAction(CPlayer& player)  override;
 };
 
 

@@ -18,10 +18,8 @@ public:
     virtual ~CSpace();
     int GetType() const;
     std::string GetName() const;
-    virtual void ApplyEffect(CPlayer& player) ;
-    virtual void PerformAction(CPlayer& player) {
+    virtual void PerformAction(CPlayer& player) ;
 
-    }
 
 };
 

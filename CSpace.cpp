@@ -13,8 +13,9 @@ std::string CSpace::GetName() const {
     return mName;
 }
 
-void CSpace::ApplyEffect(CPlayer &player) {
+void CSpace::PerformAction(CPlayer &player) {
 
 }
+
 
 CSpace::CSpace() = default;

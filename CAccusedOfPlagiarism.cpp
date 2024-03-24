@@ -5,7 +5,7 @@ CAccusedOfPlagiarism::CAccusedOfPlagiarism(int type, const std::string& name) : 
 
 CAccusedOfPlagiarism::~CAccusedOfPlagiarism() = default;
 
-void CAccusedOfPlagiarism::ApplyEffect(CPlayer& player) {
+void CAccusedOfPlagiarism::PerformAction(CPlayer& player) {
 
     // Reduce player's motivation by 50
     player.IncreaseMotivation(-50);

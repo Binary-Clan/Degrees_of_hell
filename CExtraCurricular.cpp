@@ -3,13 +3,13 @@
 #include "CAssessment.h"
 
 
-//void CExtraCurricular::ApplyEffect(CPlayer& player) {
-//    // Implement extra-curricular activity effect
-//    std::cout<< player.GetName() << " lands on Extra-Curricular and joins a club" << std::endl;
-//}
 
 CExtraCurricular::CExtraCurricular(int type, const std::string &name) : CAssessment(type, name) {
 
+}
+
+void CExtraCurricular::PerformAction(CPlayer &player) {
+    CAssessment::PerformAction(player);
 }
 
 CExtraCurricular::~CExtraCurricular() = default;
@@ -46,5 +46,3 @@ CExtraCurricular::~CExtraCurricular() = default;
 //    }
 //}
 
-void CExtraCurricular::ApplyEffect(CPlayer &player) {
-}

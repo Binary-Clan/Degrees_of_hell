@@ -2,7 +2,7 @@
 #include "CSkipClasses.h"
 
 
-void CSkipClasses::ApplyEffect(CPlayer& player) {
+void CSkipClasses::PerformAction(CPlayer& player) {
     std::cout << player.GetName() << " lands on Skip Classes and hangs out with their dodgy mates" << std::endl;
     // No special action for Skip Classes
 }

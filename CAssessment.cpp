@@ -21,7 +21,7 @@ void CAssessment::SetCompleted(bool completed) {
     mCompleted = completed;
 }
 
-void CAssessment::ApplyEffect(CPlayer &player) {
+void CAssessment::PerformAction(CPlayer &player) {
 
 }
 

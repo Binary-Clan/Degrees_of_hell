@@ -8,7 +8,7 @@ class CExtraCurricular : public  CAssessment{
 public:
     CExtraCurricular(int type, const std::string& name);
     ~CExtraCurricular() override;
-    void ApplyEffect(CPlayer& player) override;
+    void PerformAction(CPlayer& player) override;
 
 //    static void ApplyEffect(CPlayer &player, CPlayer &otherPlayer);
 };

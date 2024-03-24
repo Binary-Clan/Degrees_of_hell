@@ -7,7 +7,7 @@ class CPlagiarismHearing : public CSpace {
 public:
     CPlagiarismHearing(int type, const std::string& name);
     ~CPlagiarismHearing() override;
-    void ApplyEffect(CPlayer& player) override;
+    void PerformAction(CPlayer& player) override;
 };
 
 #endif // DEGREES_OF_HELL_CPLAGIARISMHEARING_H

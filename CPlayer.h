@@ -28,10 +28,8 @@ public:
     void IncrementYear();
     void IncreaseSuccess(int value); // Added method
     bool IsActivityCompleted();
+
     int GetSpin();
-};
-
-
     void SetActivityCompleted(bool b);
 };
 

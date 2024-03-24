@@ -25,56 +25,57 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
             while (file >> type) {
                 std::getline(file >> std::ws, name); // Read the rest of the line as name
                 switch (type) {
-                    case 1:{
+                    case 1: {
                         int cost, achievement, year;
-                        std::string first,second;
+                        std::string first, second;
                         std::istringstream iss(name);
                         iss >> first >> second >> cost >> achievement >> year;
                         name = first + " " + second;
-                        CSpace* assessment = new CAssessment(type, name, cost, achievement);
+                        CSpace *assessment = new CAssessment(type, name, cost, achievement);
                         spaces.push_back(assessment);
                         break;
                     }
 
                     case 3: {  // New case for ExtraCurricular
-                        CSpace* extraCurricular = new CExtraCurricular(type, name);
+                        CSpace *extraCurricular = new CExtraCurricular(type, name);
                         spaces.push_back(extraCurricular);
                         break;
                     }
-                    case 4:  {
-                        CSpace* bonus = new CBonus(type, name);
+                    case 4: {
+                        CSpace *bonus = new CBonus(type, name);
                         spaces.push_back(bonus);
                         break;
 
-                    } 
+                    }
                     case 5: {
-                        CSpace* bogus = new CBogus(type, name);
+                        CSpace *bogus = new CBogus(type, name);
                         spaces.push_back(bogus);
                         break;
                     }
 
-                    case 6:{
-                        CSpace* plagiarismHearing = new CPlagiarismHearing(type, name);
+                    case 6: {
+                        CSpace *plagiarismHearing = new CPlagiarismHearing(type, name);
                         spaces.push_back(plagiarismHearing);
                         break;
                     }
 
-                    case 7:{
-                        CSpace* accusedOfPlagiarism = new CAccusedOfPlagiarism(type, name);
+                    case 7: {
+                        CSpace *accusedOfPlagiarism = new CAccusedOfPlagiarism(type, name);
                         spaces.push_back(accusedOfPlagiarism);
                         break;
                     }
 
-                    case 8:{
-                        CSpace* plagiarismHearing = new CPlagiarismHearing(type, name);
+                    case 8: {
+                        CSpace *plagiarismHearing = new CPlagiarismHearing(type, name);
                         spaces.push_back(plagiarismHearing);
                         break;
                     }
 
-                    default:{
-                        CSpace* space = new CSpace(type, name);
+                    default: {
+                        CSpace *space = new CSpace(type, name);
                         spaces.push_back(space);
                     }
+                }
             }
             file.close();
         } else {
@@ -151,7 +152,7 @@ void SimulatePlayerTurn(CPlayer& player, std::vector<CSpace *> spaces, CPlayer& 
     }
     else {
         // Apply effect of the space using polymorphism
-        currentSpace->ApplyEffect(player);
+        currentSpace->PerformAction(player);
 //        std::cout << "Nothing happens" << std::endl;
     }
 }

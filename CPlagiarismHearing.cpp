@@ -5,6 +5,6 @@ CPlagiarismHearing::CPlagiarismHearing(int type, const std::string& name) : CSpa
 
 CPlagiarismHearing::~CPlagiarismHearing() = default;
 
-void CPlagiarismHearing::ApplyEffect(CPlayer& player) {
+void CPlagiarismHearing::PerformAction(CPlayer& player) {
     std::cout << player.GetName() << " lands on Plagiarism Hearing and supports their friend" << std::endl;
 }
