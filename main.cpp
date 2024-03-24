@@ -171,7 +171,7 @@ void SimulatePlayerTurn(CPlayer& player, std::vector<CSpace *> spaces, CPlayer& 
 //                int helpAchievement = assessment->GetAchievement() / 2;
                 if (otherPlayer.GetMotivation() >= helpCost) {
                     player.IncreaseMotivation(-helpCost);
-                    otherPlayer.IncreaseMotivation(helpCost+kExtraCurricularCost);
+                    otherPlayer.IncreaseMotivation(-helpCost+kExtraCurricularCost);
 //                    player.IncreaseSuccess(helpAchievement);
 //                    otherPlayer.IncreaseSuccess(helpAchievement);
                     std::cout<< player.GetName() << "motivates" << otherPlayer.GetName() << "by joining their activity" << std::endl;
