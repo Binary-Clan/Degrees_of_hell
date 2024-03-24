@@ -24,9 +24,13 @@ public:
     void Spin();
     void Move(int spaces);
     void IncreaseMotivation(int value);
+    void DecreaseMotivation(int value);
     void IncrementYear();
     void IncreaseSuccess(int value); // Added method
     bool IsActivityCompleted();
+    int GetSpin();
+};
+
 
     void SetActivityCompleted(bool b);
 };

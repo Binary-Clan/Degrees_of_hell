@@ -37,6 +37,10 @@ void CPlayer::Spin() {
 
 }
 
+int CPlayer::GetSpin() {
+    return Random();
+}
+
 void CPlayer::Move(int spaces) {
     mPosition += spaces;
     if(mPosition > 36) {
@@ -49,6 +53,10 @@ void CPlayer::Move(int spaces) {
 
 void CPlayer::IncreaseMotivation(int value) {
     mMotivation += value;
+}
+
+void CPlayer::DecreaseMotivation(int value) {
+    mMotivation -= value;
 }
 
 void CPlayer::IncrementYear() {

@@ -7,42 +7,12 @@
 #include "CPlagiarismHearing.h"
 #include "CAccusedOfPlagiarism.h"
 #include "CAssessment.h"
+
 #include "CExtraCurricular.h"
 #include <sstream>
 #include <memory> // Include memory header for smart pointers
-
-//void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
-//    try {
-//        std::ifstream file(filename);
-//        if (file.is_open()) {
-//            std::cout << "File opened" << std::endl;
-//            int type;
-//            std::string name;
-//            while (file >> type) {
-//                std::getline(file >> std::ws, name); // Read the rest of the line as name
-//                std::cout << "Reading space: " << name << std::endl;
-//                std::cout << "Reading type: " << type << std::endl;
-//                if (type == 1) {
-//                    int cost, achievement, year;
-//                    std::string first, second;
-//                    std::istringstream iss(name);
-//                    iss >> first >> second >> cost >> achievement >> year;
-//                    name = first + " " + second;
-//                    // Create and store a pointer to CAssessment object
-//                    spaces.push_back(new CAssessment(type, name, cost, achievement));
-//                } else {
-//                    // Create and store a pointer to CSpace object
-//                    spaces.push_back(new CSpace(type, name));
-//                }
-//            }
-//            file.close();
-//        } else {
-//            throw std::runtime_error("Unable to open file: " + filename);
-//        }
-//    } catch (const std::exception& e) {
-//        std::cerr << e.what() << std::endl;
-//    }
-//}
+#include "CBogus.h"
+#include "CBonus.h"
 
 
 void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
@@ -54,8 +24,6 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
             std::string name;
             while (file >> type) {
                 std::getline(file >> std::ws, name); // Read the rest of the line as name
-//                std::cout << "Reading space: " << name << std::endl;
-//                std::cout << "Reading type: " << type << std::endl;
                 switch (type) {
                     case 1:{
                         int cost, achievement, year;
@@ -71,6 +39,17 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
                     case 3: {  // New case for ExtraCurricular
                         CSpace* extraCurricular = new CExtraCurricular(type, name);
                         spaces.push_back(extraCurricular);
+                        break;
+                    }
+                    case 4:  {
+                        CSpace* bonus = new CBonus(type, name);
+                        spaces.push_back(bonus);
+                        break;
+
+                    } 
+                    case 5: {
+                        CSpace* bogus = new CBogus(type, name);
+                        spaces.push_back(bogus);
                         break;
                     }
 
@@ -96,20 +75,6 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
                         CSpace* space = new CSpace(type, name);
                         spaces.push_back(space);
                     }
-
-                }
-//                if (type == 1) {
-//                    int cost, achievement, year;
-//                    std::string first,second;
-//                    std::istringstream iss(name);
-//                    iss >> first >> second >> cost >> achievement >> year;
-//                    name = first + " " + second;
-//                    CSpace* assessment = new CAssessment(type, name, cost, achievement);
-//                    spaces.push_back(assessment);
-//                } else {
-//                    CSpace* space = new CSpace(type, name);
-//                    spaces.push_back(space);
-//                }
             }
             file.close();
         } else {
@@ -223,89 +188,6 @@ int main() {
         std::cout << player2.GetName() << "'s motivation is " << player2.GetMotivation()
                   << " and success is " << player2.GetSuccess() << std::endl;
     }
-
-    // Simulate 20 rounds
-//    for (int round = 1; round <= 20; ++round) {
-//        // Display round number
-//        std::cout << "\nRound " << round << std::endl;
-//
-//        // Player 1 turn
-//        player1.Spin();
-//        CSpace* currentSpace1 = spaces[player1.GetPosition()-1];
-//        std::cout << player1.GetName() << " lands on " << currentSpace1->GetName() << std::endl;
-//        if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace1)) {
-//            if (!assessment->IsCompleted()) {
-//                if (player1.GetMotivation() >= assessment->GetMotivationalCost()) {
-//                    player1.IncreaseMotivation(-assessment->GetMotivationalCost());
-//                    player1.IncreaseSuccess(assessment->GetAchievement());
-//                    assessment->SetCompleted(true);
-//                    std::cout << player1.GetName() << " completes " << currentSpace1->GetName()
-//                              << " for " << assessment->GetMotivationalCost()
-//                              << " and achieves " << assessment->GetAchievement() << std::endl;
-//                } else {
-//                    // Ask for help
-//                    std::cout << player1.GetName() << " asks for help with " << currentSpace1->GetName() << std::endl;
-//                    int helpCost = assessment->GetMotivationalCost() / 2;
-//                    int helpAchievement = assessment->GetAchievement() / 2;
-//                    if (player2.GetMotivation() >= helpCost) {
-//                        player1.IncreaseMotivation(-helpCost);
-//                        player2.IncreaseMotivation(-helpCost);
-//                        player1.IncreaseSuccess(helpAchievement);
-//                        player2.IncreaseSuccess(helpAchievement);
-//                        std::cout << player2.GetName() << " helps and achieves " << helpAchievement << std::endl;
-//                    } else {
-//                        std::cout << player2.GetName() << " cannot help due to low motivation" << std::endl;
-//                    }
-//                }
-//            } else {
-//                std::cout << currentSpace1->GetName() << " has already been completed" << std::endl;
-//            }
-//        } else {
-//            std::cout << "Nothing happens" << std::endl;
-//        }
-//
-//        // Output player's motivation and success
-//        std::cout << player1.GetName() << "'s motivation is " << player1.GetMotivation()
-//                  << " and success is " << player1.GetSuccess() << std::endl;
-//
-//        // Player 2 turn
-//        // Simulate player 2 turn similarly
-//        player2.Spin();
-//        CSpace* currentSpace2 = spaces[player2.GetPosition()-1];
-//        std::cout << player2.GetName() << " lands on " << currentSpace2->GetName() << std::endl;
-//        if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace2)) {
-//            if (!assessment->IsCompleted()) {
-//                if (player2.GetMotivation() >= assessment->GetMotivationalCost()) {
-//                    player2.IncreaseMotivation(-assessment->GetMotivationalCost());
-//                    player2.IncreaseSuccess(assessment->GetAchievement());
-//                    assessment->SetCompleted(true);
-//                    std::cout << player2.GetName() << " completes " << currentSpace2->GetName()
-//                              << " for " << assessment->GetMotivationalCost()
-//                              << " and achieves " << assessment->GetAchievement() << std::endl;
-//                } //after this line occur error
-//                else {
-//                    // Ask for help
-//                    std::cout << player2.GetName() << " asks for help with " << currentSpace2->GetName() << std::endl;
-//                    int helpCost = assessment->GetMotivationalCost() / 2;
-//                    int helpAchievement = assessment->GetAchievement() / 2;
-//                    if (player1.GetMotivation() >= helpCost) {
-//                        player2.IncreaseMotivation(-helpCost);
-//                        player1.IncreaseMotivation(-helpCost);
-//                        player2.IncreaseSuccess(helpAchievement);
-//                        player1.IncreaseSuccess(helpAchievement);
-//                        std::cout << player1.GetName() << " helps and achieves " << helpAchievement << std::endl;
-//                    } else {
-//                        std::cout << player1.GetName() << " cannot help due to low motivation" << std::endl;
-//                    }
-//                }
-//            } else {
-//                std::cout << currentSpace2->GetName() << " has already been completed" << std::endl;
-//            }
-//        } else {
-//            std::cout << "Nothing happens" << std::endl;
-//        }
-//
-//    }
 
     // Game Over
     std::cout << "\n\nGame Over" << std::endl;

@@ -19,6 +19,10 @@ public:
     int GetType() const;
     std::string GetName() const;
     virtual void ApplyEffect(CPlayer& player) ;
+    virtual void PerformAction(CPlayer& player) {
+
+    }
+
 };
 
 #endif //DEGREES_OF_HELL_CSPACE_H

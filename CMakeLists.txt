@@ -12,4 +12,8 @@ add_executable(Degrees_of_Hell main.cpp CSpace.h CSpace.cpp CPlayer.cpp CPlayer.
         CSkipClasses.cpp
         CExtraCurricular.h
         CExtraCurricular.cpp
+        CBonus.cpp 
+        CBonus.h 
+        CBogus.cpp 
+        CBogus.h
 )
