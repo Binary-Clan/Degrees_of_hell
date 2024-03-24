@@ -1,48 +1,55 @@
 #include <iostream>
+#include <algorithm>
 #include "CExtraCurricular.h"
-#include "CAssessment.h"
+#include "CSpace.h"
 
 
 
-CExtraCurricular::CExtraCurricular(int type, const std::string &name) : CAssessment(type, name) {
+CExtraCurricular::CExtraCurricular(int type, const std::string &name) : CSpace(type, name) {
 
 }
 
 void CExtraCurricular::PerformAction(CPlayer &player) {
-    CAssessment::PerformAction(player);
+    if(mNumberOfPlayers == -10){
+        std::cout<< this->GetName()<< " is already completed by this player "<< player.GetName()<< std::endl;
+    } else if(mNumberOfPlayers > 0){
+        const int dividedCost = mMotivationalCost/ mNumberOfPlayers;
+        player.DecreaseMotivation(dividedCost);
+        for (int i = 0; i < mNumberOfPlayers; i++) {
+            completedPlayers[i]->IncreaseMotivation(dividedCost);
+        }
+        std::cout << player.GetName() << " motivates ";
+        for (CPlayer* completedPlayer : completedPlayers) {
+            std::cout << completedPlayer->GetName() ;
+        }
+        std::cout << " by joining their activity" << std::endl;
+
+    } else{
+        std::cout << player.GetName() << " is participating in " << GetName() << std::endl;
+        if (player.GetMotivation() >= mMotivationalCost) {
+            player.DecreaseMotivation(mMotivationalCost);
+        }
+    }
 }
+
 
 CExtraCurricular::~CExtraCurricular() = default;
 
-//void CExtraCurricular::ApplyEffect(CPlayer& player, CPlayer& otherPlayer) {
-//    std::cout << player.GetName() << " lands on Extra-Curricular and joins a club" << std::endl;
-//    // Implement the logic for completing extra-curricular activities
-//    // The motivational cost of completing any extra-curricular activity is 100
-//    const int kMotivationalCost = 100;
-//
-//    if (!player.IsActivityCompleted()) {
-//        if (player.GetMotivation() >= kMotivationalCost) {
-//            // Player completes the extra-curricular activity
-//            player.IncreaseMotivation(-kMotivationalCost);
-//            player.SetActivityCompleted(true);
-//            std::cout << player.GetName() << " completes the Extra-Curricular activity" << std::endl;
-//        } else {
-//            // Player asks for help from the other player
-//            std::cout << player.GetName() << " asks for help with the Extra-Curricular activity" << std::endl;
-//            int helpCost = kMotivationalCost / 2;
-//            int helpAchievement = 50; // Assuming half the achievement value
-//            if (otherPlayer.GetMotivation() >= helpCost) {
-//                player.IncreaseMotivation(helpCost); // Other player motivates the player
-//                otherPlayer.IncreaseMotivation(-helpCost);
-//                player.IncreaseSuccess(helpAchievement);
-//                otherPlayer.IncreaseSuccess(helpAchievement);
-//                std::cout << otherPlayer.GetName() << " motivates " << player.GetName() << " by joining their activity" << std::endl;
-//            } else {
-//                std::cout << otherPlayer.GetName() << " cannot help due to low motivation" << std::endl;
-//            }
-//        }
-//    } else {
-//        std::cout << player.GetName() << "'s Extra-Curricular activity has already been completed" << std::endl;
-//    }
-//}
+int CExtraCurricular::AddCompletedPlayer(CPlayer &player) {
+    if(IsCompleted(player)){
+        mNumberOfPlayers = -10;
+    } else{
+        completedPlayers.push_back(&player);
+        mNumberOfPlayers =  completedPlayers.size()-1;
+    }
+    return mNumberOfPlayers;
+}
+
+bool CExtraCurricular::IsCompleted(CPlayer &player) {
+    //before checking if player is in the list, check if player is already in the completed players vector
+    auto it = std::find(completedPlayers.begin(), completedPlayers.end(), &player);
+    // If player is found, return true; otherwise, return false
+    return it != completedPlayers.end();
+}
+
 
