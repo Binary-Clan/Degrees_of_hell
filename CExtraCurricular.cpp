@@ -46,7 +46,7 @@ int CExtraCurricular::AddCompletedPlayer(CPlayer &player) {
 }
 
 bool CExtraCurricular::IsCompleted(CPlayer &player) {
-    //before checking if player is in the list, check if player is already in the completed players vector
+    //before checking if player is in the list, check if player is already in the completed mPlayers vector
     auto it = std::find(completedPlayers.begin(), completedPlayers.end(), &player);
     // If player is found, return true; otherwise, return false
     return it != completedPlayers.end();

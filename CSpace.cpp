@@ -18,7 +18,7 @@ void CSpace::PerformAction(CPlayer &player) {
 }
 
 int CSpace::AddCompletedPlayer(CPlayer &player) {
-
+    return 0;
 }
 
 
