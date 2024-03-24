@@ -15,6 +15,7 @@
 
 // Typedef for vector of smart pointers to CSpace objects
 using SpaceVector = std::vector<std::unique_ptr<CSpace>>;
+using PlayerList = std::vector<CPlayer>;
 
 void ReadSpaces(SpaceVector& spaces, const std::string& filename) {
     try {
@@ -73,61 +74,76 @@ void ReadSpaces(SpaceVector& spaces, const std::string& filename) {
 }
 
 // Function to simulate a player's turn
-void SimulatePlayerTurn(CPlayer& player, SpaceVector& spaces, CPlayer& otherPlayer) {
-    player.Spin();
-    int position = player.GetPosition() - 1; // Adjust for 0-based indexing
+void SimulatePlayerTurn(CPlayer& currentPlayer, SpaceVector& spaces, PlayerList& players) {
+    currentPlayer.Spin();
+    int position = currentPlayer.GetPosition() - 1; // Adjust for 0-based indexing
     CSpace* currentSpace = spaces[position].get();
-    std::cout << player.GetName() << " lands on " << currentSpace->GetName() << std::endl;
+    std::cout << currentPlayer.GetName() << " lands on " << currentSpace->GetName() << std::endl;
+
+    // Handle actions based on the type of space
     if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace)) {
+        // Handle assessment space
         if (!assessment->IsCompleted()) {
-            if (player.GetMotivation() >= assessment->GetMotivationalCost()) {
-                player.IncreaseMotivation(-assessment->GetMotivationalCost());
-                player.IncreaseSuccess(assessment->GetAchievement());
+            if (currentPlayer.GetMotivation() >= assessment->GetMotivationalCost()) {
+                currentPlayer.IncreaseMotivation(-assessment->GetMotivationalCost());
+                currentPlayer.IncreaseSuccess(assessment->GetAchievement());
                 assessment->SetCompleted(true);
-                std::cout << player.GetName() << " completes " << currentSpace->GetName()
+                std::cout << currentPlayer.GetName() << " completes " << currentSpace->GetName()
                           << " for " << assessment->GetMotivationalCost()
                           << " and achieves " << assessment->GetAchievement() << std::endl;
             } else {
                 // Ask for help
-                std::cout << player.GetName() << " asks for help with " << currentSpace->GetName() << std::endl;
+                std::cout << currentPlayer.GetName() << " asks for help with " << currentSpace->GetName() << std::endl;
                 int helpCost = assessment->GetMotivationalCost() / 2;
                 int helpAchievement = assessment->GetAchievement() / 2;
-                if (otherPlayer.GetMotivation() >= helpCost) {
-                    player.IncreaseMotivation(-helpCost);
-                    otherPlayer.IncreaseMotivation(-helpCost);
-                    player.IncreaseSuccess(helpAchievement);
-                    otherPlayer.IncreaseSuccess(helpAchievement);
-                    std::cout << otherPlayer.GetName() << " helps and achieves " << helpAchievement << std::endl;
-                } else {
-                    std::cout << otherPlayer.GetName() << " cannot help due to low motivation" << std::endl;
+                for (auto& otherPlayer : players) {
+                    if (&otherPlayer != &currentPlayer && otherPlayer.GetMotivation() >= helpCost) {
+                        currentPlayer.IncreaseMotivation(-helpCost);
+                        otherPlayer.IncreaseMotivation(-helpCost);
+                        currentPlayer.IncreaseSuccess(helpAchievement);
+                        otherPlayer.IncreaseSuccess(helpAchievement);
+                        std::cout << otherPlayer.GetName() << " helps and achieves " << helpAchievement << std::endl;
+                        break;
+                    }
+                }
+                if (currentPlayer.GetMotivation() < assessment->GetMotivationalCost()) {
+                    std::cout << "No players can help due to low motivation" << std::endl;
                 }
             }
         } else {
             std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
         }
-    } else if (auto* extraCurricular = dynamic_cast<CExtraCurricular*>(currentSpace)) {
+    } else if (CExtraCurricular* extraCurricular = dynamic_cast<CExtraCurricular*>(currentSpace)) {
+        // Handle extra-curricular space
         if (!extraCurricular->IsCompleted()) {
-            if (player.GetMotivation() >= extraCurricular->GetMotivationalCost()) {
-                player.IncreaseMotivation(-100);
+            if (currentPlayer.GetMotivation() >= extraCurricular->GetMotivationalCost()) {
+                currentPlayer.IncreaseMotivation(-extraCurricular->GetMotivationalCost());
                 extraCurricular->SetCompleted(true);
             } else {
-                const int kExtraCurricularCost = 100;
-                int helpCost = kExtraCurricularCost / 2;
-                if (otherPlayer.GetMotivation() >= helpCost) {
-                    player.IncreaseMotivation(-helpCost);
-                    otherPlayer.IncreaseMotivation(-helpCost + kExtraCurricularCost);
-                    std::cout << player.GetName() << " motivates " << otherPlayer.GetName() << " by joining their activity" << std::endl;
-                } else {
-                    std::cout << otherPlayer.GetName() << " cannot help due to low motivation" << std::endl;
+                // Ask for help
+                std::cout << currentPlayer.GetName() << " asks for help with " << currentSpace->GetName() << std::endl;
+                int helpCost = extraCurricular->GetMotivationalCost() / 2;
+                for (auto& otherPlayer : players) {
+                    if (&otherPlayer != &currentPlayer && otherPlayer.GetMotivation() >= helpCost) {
+                        currentPlayer.IncreaseMotivation(-helpCost);
+                        otherPlayer.IncreaseMotivation(-helpCost + extraCurricular->GetMotivationalCost());
+                        std::cout << otherPlayer.GetName() << " motivates " << currentPlayer.GetName() << " by joining their activity" << std::endl;
+                        break;
+                    }
+                }
+                if (currentPlayer.GetMotivation() < extraCurricular->GetMotivationalCost()) {
+                    std::cout << "No players can help due to low motivation" << std::endl;
                 }
             }
         } else {
             std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
         }
     } else {
-        currentSpace->PerformAction(player);
+        // Handle other types of spaces
+        currentSpace->PerformAction(currentPlayer);
     }
 }
+
 
 int main() {
     // Read spaces from file
@@ -135,8 +151,12 @@ int main() {
     ReadSpaces(spaces, "degrees.txt");
 
     // Create players
-    CPlayer player1("Vyvyan");
-    CPlayer player2("Rick");
+    PlayerList players;
+    players.emplace_back("Vyvyan");
+    players.emplace_back("Rick");
+//    players.emplace_back("Neil");
+//    players.emplace_back("Mike");
+
 
     // Welcome message
     std::cout << "Welcome to Scumbag College" << std::endl;
@@ -144,35 +164,44 @@ int main() {
     // Simulate 20 rounds
     for (int round = 1; round <= 20; ++round) {
         // Display round number
-        std::cout << "\nRound "
-                << round << std::endl;
+        std::cout << "\nRound " << round << std::endl;
 
-        // Player 1 turn
-        SimulatePlayerTurn(player1, spaces, player2);
+        // Iterate over each player's turn
+        for (auto& currentPlayer : players) {
+            SimulatePlayerTurn(currentPlayer, spaces, players);
+        }
 
-        // Output player's motivation and success
-        std::cout << player1.GetName() << "'s motivation is " << player1.GetMotivation()
-                  << " and success is " << player1.GetSuccess() << std::endl;
-
-        // Player 2 turn
-        SimulatePlayerTurn(player2, spaces, player1);
-
-        // Output player's motivation and success
-        std::cout << player2.GetName() << "'s motivation is " << player2.GetMotivation()
-                  << " and success is " << player2.GetSuccess() << std::endl;
+        // Output each player's motivation and success
+        for (const auto& currentPlayer : players) {
+            std::cout << currentPlayer.GetName() << "'s motivation is " << currentPlayer.GetMotivation()
+                      << " and success is " << currentPlayer.GetSuccess() << std::endl;
+        }
     }
 
     // Game Over
     std::cout << "\n\nGame Over" << std::endl;
-    std::cout << player1.GetName() << " has achieved " << player1.GetSuccess() << std::endl;
-    std::cout << player2.GetName() << " has achieved " << player2.GetSuccess() << std::endl;
-    if (player1.GetSuccess() > player2.GetSuccess()) {
-        std::cout << player1.GetName() << " wins." << std::endl;
-    } else if (player1.GetSuccess() < player2.GetSuccess()) {
-        std::cout << player2.GetName() << " wins." << std::endl;
+
+    // Output final success for each player
+    for (const auto& currentPlayer : players) {
+        std::cout << currentPlayer.GetName() << " has achieved " << currentPlayer.GetSuccess() << std::endl;
+    }
+
+    // Determine and output the winner
+    int maxSuccess = 0;
+    std::string winnerName;
+    for (const auto& currentPlayer : players) {
+        if (currentPlayer.GetSuccess() > maxSuccess) {
+            maxSuccess = currentPlayer.GetSuccess();
+            winnerName = currentPlayer.GetName();
+        }
+    }
+    if (maxSuccess == 0) {
+        std::cout << "No one wins. Everyone failed!" << std::endl;
     } else {
-        std::cout << "It's a tie." << std::endl;
+        std::cout << winnerName << " wins with " << maxSuccess << " achievements!" << std::endl;
     }
 
     return 0;
 }
+
+

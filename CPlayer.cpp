@@ -94,4 +94,3 @@ const vector<CAssessment *> &CPlayer::GetCompletedAssessments() const {
 void CPlayer::SetCompletedAssessments(const vector<CAssessment *> &completedAssessments) {
     CPlayer::completedAssessments = completedAssessments;
 }
-
