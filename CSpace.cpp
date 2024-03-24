@@ -17,5 +17,9 @@ void CSpace::PerformAction(CPlayer &player) {
 
 }
 
+int CSpace::AddCompletedPlayer(CPlayer &player) {
+
+}
+
 
 CSpace::CSpace() = default;

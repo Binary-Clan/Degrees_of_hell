@@ -80,7 +80,6 @@ void SimulatePlayerTurn(CPlayer& currentPlayer, SpaceVector& spaces) {
     CSpace* currentSpace = spaces[position].get();
     std::cout << currentPlayer.GetName() << " lands on " << currentSpace->GetName() << std::endl;
 
-    // Handle actions based on the type of space
     if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace)) {
         // Handle assessment space
         if (assessment->getCompletedPlayers().empty()) {
@@ -125,6 +124,9 @@ void SimulatePlayerTurn(CPlayer& currentPlayer, SpaceVector& spaces) {
                 }
             }
         }
+    }
+    else {
+        currentSpace->PerformAction(player);
     }
 }
 

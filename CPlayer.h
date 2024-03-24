@@ -20,6 +20,7 @@ public:
 
     void SetCompletedAssessments(const std::vector<CAssessment *> &completedAssessments);
 
+
 private:
     int mPosition;
     int mYear;
