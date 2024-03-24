@@ -137,33 +137,30 @@ void CPlayer::RemoveCompletedAssessment(CAssessment* assessment) {
 
 
 void CPlayer::DeferAssessment(CAssessment* assessment) {
-    int cost = assessment->GetMotivationalCost();
-    IncreaseMotivation(cost); // Regain the original motivational cost
-    DecreaseSuccess(assessment->GetAchievement()); // Lose the associated success
-    deferredAssessments.push_back({assessment, cost});
-    RemoveCompletedAssessment(assessment); // Adjust this method to remove the assessment from completedAssessments
-    std::cout << GetName() << " defers " << assessment->GetName() << " for " << cost << " motivation." << std::endl;
+    IncreaseMotivation(assessment->GetMotivationalCost()); // Regain motivation
+    DecreaseSuccess(assessment->GetAchievement()); // Lose success
+    deferredAssessments.push_back(assessment); // Add to deferred assessments
+    RemoveCompletedAssessment(assessment);
+    std::cout << GetName() << " defers " << assessment->GetName() << " for motivation." << std::endl;
 }
 
-void CPlayer::CompleteDeferredAssessment() {
-    if (!deferredAssessments.empty()) {
-        // Sort deferred assessments by motivational cost, lowest first
-        std::sort(deferredAssessments.begin(), deferredAssessments.end(),
-                  [](const auto& a, const auto& b) { return a.second < b.second; });
 
-        for (auto it = deferredAssessments.begin(); it != deferredAssessments.end(); ) {
-            if (mMotivation > it->second) { // Check if player has enough motivation
-                IncreaseMotivation(-it->second); // Deduct motivation
-                IncreaseSuccess(it->first->GetAchievement()); // Restore success
-                AddCompletedAssessment(mYear, it->first); // Re-add to completed assessments
-                std::cout << GetName() << " completes deferred " << it->first->GetName() << std::endl;
-                it = deferredAssessments.erase(it); // Remove from deferred list
-            } else {
-                ++it;
-            }
+void CPlayer::CompleteDeferredAssessment() {
+    auto it = deferredAssessments.begin();
+    while (it != deferredAssessments.end()) {
+        CAssessment* assessment = *it;
+        if (mMotivation > assessment->GetMotivationalCost()) {
+            IncreaseMotivation(-assessment->GetMotivationalCost());
+            IncreaseSuccess(assessment->GetAchievement());
+            AddCompletedAssessment(mYear, assessment);
+            std::cout << GetName() << " completes deferred " << assessment->GetName() << std::endl;
+            it = deferredAssessments.erase(it); // Successfully complete the deferred assessment
+        } else {
+            ++it;
         }
     }
 }
+
 
 void CPlayer::QuitGame() {
     mIsActive = false;

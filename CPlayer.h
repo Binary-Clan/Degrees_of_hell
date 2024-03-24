@@ -20,7 +20,7 @@ private:
     bool mIsActive;
     CSpace* currentSpace;
     std::vector<std::pair<int, CAssessment*>> completedAssessments;
-    std::vector<std::pair<CAssessment*, int>> deferredAssessments;
+    std::vector<CAssessment*> deferredAssessments;
 
 public:
     const std::vector<CAssessment *> &GetCompletedAssessments() const;
@@ -47,9 +47,7 @@ public:
     void SetCurrentSpace(CSpace *currentSpace);
     CSpace *GetCurrentSpace() const;
     void AddCompletedAssessment(int year, CAssessment* assessment);
-
     void RemoveCompletedAssessment(CAssessment* assessment);
-
     bool CanAdvanceToNextYear() const ;
     bool HasGraduated() const ;
     void CheckAndHandleMotivation();
@@ -58,10 +56,6 @@ public:
     bool HasNegativeMotivation() const { return mMotivation < 0; }
     void QuitGame(); // Method to handle quitting
     bool IsActive() const { return mIsActive; }
-
-
-
-
 };
 
 #endif //DEGREES_OF_HELL_CPLAYER_H
