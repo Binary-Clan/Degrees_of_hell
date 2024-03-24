@@ -4,14 +4,28 @@
 #define DEGREES_OF_HELL_CPLAYER_H
 
 #include <string>
+#include <vector>
+#include <algorithm>
+//#include "CSpace.h"
 
+class CSpace;
+class CAssessment;
 class CPlayer {
 private:
     std::string mName;
     int mMotivation;
     int mSuccess;
+public:
+    const std::vector<CAssessment *> &GetCompletedAssessments() const;
+
+    void SetCompletedAssessments(const std::vector<CAssessment *> &completedAssessments);
+
+private:
     int mPosition;
     int mYear;
+    CSpace* currentSpace;
+    std::vector<CAssessment*> completedAssessments;
+
 
 public:
     CPlayer(const std::string& name);
@@ -28,9 +42,23 @@ public:
     void IncrementYear();
     void IncreaseSuccess(int value); // Added method
     bool IsActivityCompleted();
-
     int GetSpin();
     void SetActivityCompleted(bool b);
+    void SetCurrentSpace(CSpace *currentSpace);
+    CSpace *GetCurrentSpace() const;
+    void AddCompletedAssessment(CAssessment* assessment) {
+        completedAssessments.push_back(assessment);
+    }
+
+    void RemoveCompletedAssessment(CAssessment* assessment) {
+        // Find the assessment in the vector
+        auto it = std::find(completedAssessments.begin(), completedAssessments.end(), assessment);
+        if (it != completedAssessments.end()) {
+            // Erase the assessment from the vector
+            completedAssessments.erase(it);
+        }
+    }
+
 };
 
 #endif //DEGREES_OF_HELL_CPLAYER_H

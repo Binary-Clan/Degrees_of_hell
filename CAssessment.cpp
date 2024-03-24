@@ -29,3 +29,21 @@ CAssessment::CAssessment(int i, const std::string basicString) {
 
 }
 
+const std::vector<CPlayer *> &CAssessment::getCompletedPlayers() const {
+    return completedPlayers;
+}
+
+void CAssessment::setCompletedPlayers(const std::vector<CPlayer *> &completedPlayers) {
+    CAssessment::completedPlayers = completedPlayers;
+}
+
+void CAssessment::AddCompletedPlayer(CPlayer* player){
+    completedPlayers.push_back(player);
+}
+
+void CAssessment::RemoveCompletedPlayer(CPlayer* player) {
+    auto it = std::find(completedPlayers.begin(), completedPlayers.end(), player);
+    if (it != completedPlayers.end()) {
+        completedPlayers.erase(it);
+    }
+}

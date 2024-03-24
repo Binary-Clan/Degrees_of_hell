@@ -78,3 +78,20 @@ bool CPlayer::IsActivityCompleted() {
 void CPlayer::SetActivityCompleted(bool b) {
 
 }
+
+void CPlayer::SetCurrentSpace(CSpace *currentSpace) {
+    CPlayer::currentSpace = currentSpace;
+}
+
+CSpace *CPlayer::GetCurrentSpace() const {
+    return currentSpace;
+}
+
+const vector<CAssessment *> &CPlayer::GetCompletedAssessments() const {
+    return completedAssessments;
+}
+
+void CPlayer::SetCompletedAssessments(const vector<CAssessment *> &completedAssessments) {
+    CPlayer::completedAssessments = completedAssessments;
+}
+

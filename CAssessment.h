@@ -10,6 +10,7 @@ private:
     int mMotivationalCost;
     int mAchievement;
     bool mCompleted;
+    std::vector<CPlayer*> completedPlayers;
 
 protected:
     CAssessment(int i, const std::string basicString);
@@ -20,7 +21,16 @@ public:
     int GetAchievement() const;
     bool IsCompleted() const;
     void SetCompleted(bool completed);
+
+    const std::vector<CPlayer *> &getCompletedPlayers() const;
+
+    void setCompletedPlayers(const std::vector<CPlayer *> &completedPlayers);
+
     void PerformAction(CPlayer& player) override;
+
+    void AddCompletedPlayer(CPlayer *player);
+
+    void RemoveCompletedPlayer(CPlayer *player);
 };
 
 #endif //DEGREES_OF_HELL_CASSESSMENT_H
