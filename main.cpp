@@ -2,24 +2,24 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <memory> // Include memory header for smart pointers
+#include <sstream>
 #include "CSpace.h"
 #include "CPlayer.h"
 #include "CPlagiarismHearing.h"
 #include "CAccusedOfPlagiarism.h"
 #include "CAssessment.h"
-
 #include "CExtraCurricular.h"
-#include <sstream>
-#include <memory> // Include memory header for smart pointers
 #include "CBogus.h"
 #include "CBonus.h"
 
+// Typedef for vector of smart pointers to CSpace objects
+using SpaceVector = std::vector<std::unique_ptr<CSpace>>;
 
-void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
+void ReadSpaces(SpaceVector& spaces, const std::string& filename) {
     try {
         std::ifstream file(filename);
         if (file.is_open()) {
-//            std::cout << "File opened" << std::endl;
             int type;
             std::string name;
             while (file >> type) {
@@ -31,49 +31,35 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
                         std::istringstream iss(name);
                         iss >> first >> second >> cost >> achievement >> year;
                         name = first + " " + second;
-                        CSpace *assessment = new CAssessment(type, name, cost, achievement);
-                        spaces.push_back(assessment);
+                        spaces.push_back(std::make_unique<CAssessment>(type, name, cost, achievement));
                         break;
                     }
-
                     case 3: {  // New case for ExtraCurricular
-                        CSpace *extraCurricular = new CExtraCurricular(type, name);
-                        spaces.push_back(extraCurricular);
+                        spaces.push_back(std::make_unique<CExtraCurricular>(type, name));
                         break;
                     }
                     case 4: {
-                        CSpace *bonus = new CBonus(type, name);
-                        spaces.push_back(bonus);
+                        spaces.push_back(std::make_unique<CBonus>(type, name));
                         break;
-
                     }
                     case 5: {
-                        CSpace *bogus = new CBogus(type, name);
-                        spaces.push_back(bogus);
+                        spaces.push_back(std::make_unique<CBogus>(type, name));
                         break;
                     }
-
                     case 6: {
-                        CSpace *plagiarismHearing = new CPlagiarismHearing(type, name);
-                        spaces.push_back(plagiarismHearing);
+                        spaces.push_back(std::make_unique<CPlagiarismHearing>(type, name));
                         break;
                     }
-
                     case 7: {
-                        CSpace *accusedOfPlagiarism = new CAccusedOfPlagiarism(type, name);
-                        spaces.push_back(accusedOfPlagiarism);
+                        spaces.push_back(std::make_unique<CAccusedOfPlagiarism>(type, name));
                         break;
                     }
-
                     case 8: {
-                        CSpace *plagiarismHearing = new CPlagiarismHearing(type, name);
-                        spaces.push_back(plagiarismHearing);
+                        spaces.push_back(std::make_unique<CPlagiarismHearing>(type, name));
                         break;
                     }
-
                     default: {
-                        CSpace *space = new CSpace(type, name);
-                        spaces.push_back(space);
+                        spaces.push_back(std::make_unique<CSpace>(type, name));
                     }
                 }
             }
@@ -87,10 +73,10 @@ void ReadSpaces(std::vector<CSpace*>& spaces, const std::string& filename) {
 }
 
 // Function to simulate a player's turn
-void SimulatePlayerTurn(CPlayer& player, std::vector<CSpace *> spaces, CPlayer& otherPlayer) {
+void SimulatePlayerTurn(CPlayer& player, SpaceVector& spaces, CPlayer& otherPlayer) {
     player.Spin();
     int position = player.GetPosition() - 1; // Adjust for 0-based indexing
-    CSpace* currentSpace = spaces[position];
+    CSpace* currentSpace = spaces[position].get();
     std::cout << player.GetName() << " lands on " << currentSpace->GetName() << std::endl;
     if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace)) {
         if (!assessment->IsCompleted()) {
@@ -119,29 +105,18 @@ void SimulatePlayerTurn(CPlayer& player, std::vector<CSpace *> spaces, CPlayer& 
         } else {
             std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
         }
-    }else if(auto* extraCurricular = dynamic_cast<CExtraCurricular*>(currentSpace)) {
+    } else if (auto* extraCurricular = dynamic_cast<CExtraCurricular*>(currentSpace)) {
         if (!extraCurricular->IsCompleted()) {
             if (player.GetMotivation() >= extraCurricular->GetMotivationalCost()) {
                 player.IncreaseMotivation(-100);
-//                player.IncreaseSuccess(assessment->GetAchievement());
                 extraCurricular->SetCompleted(true);
-
-//                std::cout << player.GetName() << " completes " << currentSpace->GetName()
-//                          << " for " << assessment->GetMotivationalCost()
-//                          << " and achieves " << assessment->GetAchievement() << std::endl;
             } else {
-                // Ask for help
-//                std::cout << player.GetName() << " asks for help with " << currentSpace->GetName() << std::endl;
                 const int kExtraCurricularCost = 100;
                 int helpCost = kExtraCurricularCost / 2;
-//                int helpAchievement = assessment->GetAchievement() / 2;
                 if (otherPlayer.GetMotivation() >= helpCost) {
                     player.IncreaseMotivation(-helpCost);
-                    otherPlayer.IncreaseMotivation(-helpCost+kExtraCurricularCost);
-//                    player.IncreaseSuccess(helpAchievement);
-//                    otherPlayer.IncreaseSuccess(helpAchievement);
-                    std::cout<< player.GetName() << "motivates" << otherPlayer.GetName() << "by joining their activity" << std::endl;
-//                    std::cout << otherPlayer.GetName() << " helps and achieves " << helpAchievement << std::endl;
+                    otherPlayer.IncreaseMotivation(-helpCost + kExtraCurricularCost);
+                    std::cout << player.GetName() << " motivates " << otherPlayer.GetName() << " by joining their activity" << std::endl;
                 } else {
                     std::cout << otherPlayer.GetName() << " cannot help due to low motivation" << std::endl;
                 }
@@ -149,18 +124,14 @@ void SimulatePlayerTurn(CPlayer& player, std::vector<CSpace *> spaces, CPlayer& 
         } else {
             std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
         }
-    }
-    else {
-        // Apply effect of the space using polymorphism
+    } else {
         currentSpace->PerformAction(player);
-//        std::cout << "Nothing happens" << std::endl;
     }
 }
 
-
 int main() {
     // Read spaces from file
-    std::vector<CSpace *> spaces;
+    SpaceVector spaces;
     ReadSpaces(spaces, "degrees.txt");
 
     // Create players
@@ -173,7 +144,8 @@ int main() {
     // Simulate 20 rounds
     for (int round = 1; round <= 20; ++round) {
         // Display round number
-        std::cout << "\nRound " << round << std::endl;
+        std::cout << "\nRound "
+                << round << std::endl;
 
         // Player 1 turn
         SimulatePlayerTurn(player1, spaces, player2);
@@ -200,11 +172,6 @@ int main() {
         std::cout << player2.GetName() << " wins." << std::endl;
     } else {
         std::cout << "It's a tie." << std::endl;
-    }
-
-    // Clean up dynamically allocated memory
-    for (auto space : spaces) {
-        delete space;
     }
 
     return 0;
