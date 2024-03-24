@@ -77,6 +77,10 @@ void SimulatePlayerTurn(CPlayer& player, SpaceVector& spaces, CPlayer& otherPlay
     player.Spin();
     int position = player.GetPosition() - 1; // Adjust for 0-based indexing
     CSpace* currentSpace = spaces[position].get();
+    if(currentSpace->GetType() == 3){
+        currentSpace->AddCompletedPlayer(player);
+
+    }
     std::cout << player.GetName() << " lands on " << currentSpace->GetName() << std::endl;
     if (CAssessment* assessment = dynamic_cast<CAssessment*>(currentSpace)) {
         if (!assessment->IsCompleted()) {
@@ -105,26 +109,8 @@ void SimulatePlayerTurn(CPlayer& player, SpaceVector& spaces, CPlayer& otherPlay
         } else {
             std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
         }
-    } else if (auto* extraCurricular = dynamic_cast<CExtraCurricular*>(currentSpace)) {
-        if (!extraCurricular->IsCompleted()) {
-            if (player.GetMotivation() >= extraCurricular->GetMotivationalCost()) {
-                player.IncreaseMotivation(-100);
-                extraCurricular->SetCompleted(true);
-            } else {
-                const int kExtraCurricularCost = 100;
-                int helpCost = kExtraCurricularCost / 2;
-                if (otherPlayer.GetMotivation() >= helpCost) {
-                    player.IncreaseMotivation(-helpCost);
-                    otherPlayer.IncreaseMotivation(-helpCost + kExtraCurricularCost);
-                    std::cout << player.GetName() << " motivates " << otherPlayer.GetName() << " by joining their activity" << std::endl;
-                } else {
-                    std::cout << otherPlayer.GetName() << " cannot help due to low motivation" << std::endl;
-                }
-            }
-        } else {
-            std::cout << currentSpace->GetName() << " has already been completed" << std::endl;
-        }
-    } else {
+    }
+    else {
         currentSpace->PerformAction(player);
     }
 }

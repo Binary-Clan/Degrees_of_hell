@@ -95,3 +95,4 @@ void CPlayer::SetCompletedAssessments(const vector<CAssessment *> &completedAsse
     CPlayer::completedAssessments = completedAssessments;
 }
 
+

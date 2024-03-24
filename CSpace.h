@@ -19,8 +19,7 @@ public:
     int GetType() const;
     std::string GetName() const;
     virtual void PerformAction(CPlayer& player) ;
-
-
+    virtual int AddCompletedPlayer(CPlayer &player);
 };
 
 #endif //DEGREES_OF_HELL_CSPACE_H
