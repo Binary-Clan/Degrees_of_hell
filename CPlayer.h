@@ -1,6 +1,4 @@
-//
-// Created by Sudharaka Fernando on 22/03/2024.
-//
+// CPlayer.h
 
 #ifndef DEGREES_OF_HELL_CPLAYER_H
 #define DEGREES_OF_HELL_CPLAYER_H
@@ -20,6 +18,7 @@ public:
     std::string GetName() const;
     int GetMotivation() const;
     int GetSuccess() const;
+    void SetPosition(int position);
     int GetPosition() const;
     int GetYear() const;
     void Spin();
@@ -27,8 +26,13 @@ public:
     void IncreaseMotivation(int value);
     void DecreaseMotivation(int value);
     void IncrementYear();
+    void IncreaseSuccess(int value); // Added method
+    bool IsActivityCompleted();
     int GetSpin();
 };
 
+
+    void SetActivityCompleted(bool b);
+};
 
 #endif //DEGREES_OF_HELL_CPLAYER_H

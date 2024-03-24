@@ -1,3 +1,3 @@
-E:/Projects/Degrees of Hell/cmake-build-debug/CMakeFiles/Degrees_of_Hell.dir
-E:/Projects/Degrees of Hell/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/Projects/Degrees of Hell/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+E:/projects/Degrees_of_hell/cmake-build-debug/CMakeFiles/Degrees_of_Hell.dir
+E:/projects/Degrees_of_hell/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/projects/Degrees_of_hell/cmake-build-debug/CMakeFiles/rebuild_cache.dir
