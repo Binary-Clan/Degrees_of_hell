@@ -1,7 +1,3 @@
-//
-// Created by Rusiru on 3/24/2024.
-//
-
 #ifndef DEGREES_OF_HELL_CBOGUS_H
 #define DEGREES_OF_HELL_CBOGUS_H
 

@@ -3,13 +3,12 @@
 #include "CExtraCurricular.h"
 #include "CSpace.h"
 
-
-
 CExtraCurricular::CExtraCurricular(int type, const std::string &name) : CSpace(type, name) {
 
 }
 
 void CExtraCurricular::PerformAction(CPlayer &player) {
+    AddCompletedPlayer(player);
     if(mNumberOfPlayers == -10){
         std::cout<< this->GetName()<< " is already completed by this player "<< player.GetName()<< std::endl;
     } else if(mNumberOfPlayers > 0){

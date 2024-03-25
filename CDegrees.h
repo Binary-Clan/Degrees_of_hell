@@ -21,6 +21,8 @@ public:
     void AddPlayer(const std::string& name);
     void SimulatePlayerTurn(CPlayer& currentPlayer);
     void Run();
+
+    void GameOver();
 };
 
 #endif // DEGREES_H

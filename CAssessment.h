@@ -22,7 +22,7 @@ public:
     bool IsCompleted() const;
     void SetCompleted(bool completed);
 
-    const std::vector<CPlayer *> &getCompletedPlayers() const;
+    const std::vector<CPlayer *> &GetCompletedPlayers() const;
 
     void setCompletedPlayers(const std::vector<CPlayer *> &completedPlayers);
 

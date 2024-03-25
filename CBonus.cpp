@@ -1,7 +1,3 @@
-//
-// Created by Rusiru on 3/24/2024.
-//
-
 #include <iostream>
 #include "CBonus.h"
 
