@@ -2,7 +2,7 @@
 
 ### Introduction ⤵️
 
-This a simple board game 🎲. This is not an interactive game 
+#### This a simple board game 🎲. This is not an interactive game (run on command line interface).
 you can play, but rather a simulation of two (or maybe more) players taking turns over a set number of rounds. 
 Play is to be automated - there is no artificial intelligence, and no user input. All output will be text based and 
 directed towards the console – there are no graphical elements to this assignment.
