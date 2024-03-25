@@ -2,12 +2,15 @@
 #include "CBonus.h"
 
 CBonus::CBonus(int type, const std::string name)
-    : CSpace(type, name){}
+        : CSpace(type, name)
+{
+}
 
-void CBonus::PerformAction(CPlayer &player)  {
-    int spin = player.GetSpin()-1;
+void CBonus::PerformAction(CPlayer &player)
+{
+    int spin = player.GetSpin() - 1;
 
-    const BonusInfo& bonus = bonuses[spin];
+    const BonusInfo &bonus = bonuses[spin];
 
     player.IncreaseMotivation(bonus.gainMotivation);
     std::cout << player.GetName() << " lands on Bonus: " << bonus.message << std::endl

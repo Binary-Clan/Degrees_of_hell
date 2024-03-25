@@ -3,11 +3,14 @@
 
 #include "CSpace.h"
 
-class CPlagiarismHearing : public CSpace {
+class CPlagiarismHearing : public CSpace
+{
 public:
-    CPlagiarismHearing(int type, const std::string& name);
+    CPlagiarismHearing(int type, const std::string &name);
+
     ~CPlagiarismHearing() override;
-    void PerformAction(CPlayer& player) override;
+
+    void PerformAction(CPlayer &player) override;
 };
 
 #endif // DEGREES_OF_HELL_CPLAGIARISMHEARING_H

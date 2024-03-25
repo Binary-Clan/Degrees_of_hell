@@ -1,6 +1,7 @@
 #include "CDegrees.h"
 
-int main() {
+int main()
+{
     CDegrees game;
 
     game.ReadSpaces("degrees.txt");

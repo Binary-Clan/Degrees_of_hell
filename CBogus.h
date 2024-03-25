@@ -6,18 +6,24 @@
 #include <vector>
 #include <string>
 
-class CBogus : public CSpace {
+class CBogus : public CSpace
+{
 private:
-    struct BogusInfo {
+    struct BogusInfo
+    {
         std::string message;
         int loseMotivation;
     };
     static const std::vector<BogusInfo> boguses;
 
 public:
-    CBogus(int type, const std::string& name);
-    virtual ~CBogus() {}
-    virtual void PerformAction(CPlayer& player) override;
+    CBogus(int type, const std::string &name);
+
+    virtual ~CBogus()
+    {
+    }
+
+    virtual void PerformAction(CPlayer &player) override;
 };
 
 #endif //DEGREES_OF_HELL_CBOGUS_H

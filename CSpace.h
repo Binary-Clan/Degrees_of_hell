@@ -5,20 +5,25 @@
 #include <string>
 #include "CPlayer.h"
 
-class CSpace {
+class CSpace
+{
 private:
     int mType{};
     std::string mName;
 
 public:
-    CSpace(int type, const std::string& name);
+    CSpace(int type, const std::string &name);
 
     CSpace();
 
     virtual ~CSpace();
+
     int GetType() const;
+
     std::string GetName() const;
-    virtual void PerformAction(CPlayer& player) ;
+
+    virtual void PerformAction(CPlayer &player);
+
     virtual int AddCompletedPlayer(CPlayer &player);
 };
 

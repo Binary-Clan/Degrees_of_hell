@@ -1,11 +1,14 @@
 #include <iostream>
 #include "CAccusedOfPlagiarism.h"
 
-CAccusedOfPlagiarism::CAccusedOfPlagiarism(int type, const std::string& name) : CSpace(type, name) {}
+CAccusedOfPlagiarism::CAccusedOfPlagiarism(int type, const std::string &name) : CSpace(type, name)
+{
+}
 
 CAccusedOfPlagiarism::~CAccusedOfPlagiarism() = default;
 
-void CAccusedOfPlagiarism::PerformAction(CPlayer& player) {
+void CAccusedOfPlagiarism::PerformAction(CPlayer &player)
+{
 
     // Reduce player's motivation by 50
     player.IncreaseMotivation(-50);

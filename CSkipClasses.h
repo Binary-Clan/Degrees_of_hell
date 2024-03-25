@@ -3,11 +3,14 @@
 
 #include "CSpace.h"
 
-class CSkipClasses : public CSpace {
+class CSkipClasses : public CSpace
+{
 public:
-    CSkipClasses(int type, const std::string& name);
+    CSkipClasses(int type, const std::string &name);
+
     ~CSkipClasses() override;
-    void PerformAction(CPlayer& player) override;
+
+    void PerformAction(CPlayer &player) override;
 };
 
 #endif //DEGREES_OF_HELL_CSKIPCLASSES_H

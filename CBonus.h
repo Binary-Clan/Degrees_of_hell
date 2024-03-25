@@ -4,17 +4,23 @@
 #include <vector>
 #include "CSpace.h"
 
-class CBonus : public CSpace{
+class CBonus : public CSpace
+{
 private:
-    struct BonusInfo {
+    struct BonusInfo
+    {
         std::string message;
         int gainMotivation;
     };
     static const std::vector<BonusInfo> bonuses;
 public:
     CBonus(int type, const std::string name);
-    virtual ~CBonus() {};
-    void PerformAction(CPlayer& player)  override;
+
+    virtual ~CBonus()
+    {
+    };
+
+    void PerformAction(CPlayer &player) override;
 };
 
 
