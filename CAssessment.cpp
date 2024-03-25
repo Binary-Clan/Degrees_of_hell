@@ -4,30 +4,38 @@
 #include <cmath>
 #include "CAssessment.h"
 
-CAssessment::CAssessment(int type, const std::string& name, int cost, int achievement)
-        : CSpace(type, name), mMotivationalCost(cost), mAchievement(achievement), mCompleted(false) {}
+CAssessment::CAssessment(int type, const std::string &name, int cost, int achievement)
+        : CSpace(type, name), mMotivationalCost(cost), mAchievement(achievement), mCompleted(false)
+{
+}
 
-int CAssessment::GetMotivationalCost() const {
+int CAssessment::GetMotivationalCost() const
+{
     return mMotivationalCost;
 }
 
-int CAssessment::GetAchievement() const {
+int CAssessment::GetAchievement() const
+{
     return mAchievement;
 }
 
-bool CAssessment::IsCompleted() const {
+bool CAssessment::IsCompleted() const
+{
     return mCompleted;
 }
 
-void CAssessment::SetCompleted(bool completed) {
+void CAssessment::SetCompleted(bool completed)
+{
     mCompleted = completed;
 }
 
-void CAssessment::PerformAction(CPlayer &player) {
-    if (GetCompletedPlayers().empty()) {
+void CAssessment::PerformAction(CPlayer &player)
+{
+    if (GetCompletedPlayers().empty())
+    {
         if (player.GetMotivation() >= GetMotivationalCost())
         {
-            player.IncreaseMotivation( -(GetMotivationalCost()));
+            player.IncreaseMotivation(-(GetMotivationalCost()));
             player.IncreaseSuccess(GetAchievement());
             SetCompleted(true);
             AddCompletedPlayer(&player);
@@ -35,27 +43,26 @@ void CAssessment::PerformAction(CPlayer &player) {
             std::cout << player.GetName() << " completes " << GetName()
                       << "for " << GetMotivationalCost()
                       << " and achieves " << GetAchievement() << std::endl;
-        }
-        else
+        } else
         {
             std::cout << "Cannot do assessment due to low motivation" << std::endl;
         }
-    }
-    else
+    } else
     {
-        if (std::find(GetCompletedPlayers().begin(), GetCompletedPlayers().end(), &player) != GetCompletedPlayers().end()) // check if that the current person has not completed the assessment
+        if (std::find(GetCompletedPlayers().begin(), GetCompletedPlayers().end(),
+                      &player) != GetCompletedPlayers().end()) // check if that the current person has not completed the assessment
         {
             std::cout << GetName() << " has already been completed" << std::endl;
-        }
-        else
+        } else
         {
-            int totalHelpCost = GetMotivationalCost() ; // Shared cost
+            int totalHelpCost = GetMotivationalCost(); // Shared cost
             int totalHelpAchievement = GetAchievement(); // Shared achievement
             int helpersCount = 1; // Including the current player
 
             // Loop through all players who have completed this assessment to join in helping
             // assumption -> the completed players' motivation does not deduct when helping
-            for (CPlayer* helper : GetCompletedPlayers()) {
+            for (CPlayer *helper: GetCompletedPlayers())
+            {
                 helpersCount++;
             }
 
@@ -68,7 +75,8 @@ void CAssessment::PerformAction(CPlayer &player) {
             // Assuming that the motivation needed is divides by the helpersCount
             player.IncreaseMotivation(-sharedCost); // Deduct the shared cost from the current player
 
-            for (CPlayer* helper : GetCompletedPlayers()) {
+            for (CPlayer *helper: GetCompletedPlayers())
+            {
                 helper->IncreaseSuccess(sharedAchievement); // Award each helper their share of the success
                 std::cout << helper->GetName() << " helps and achieves " << sharedAchievement << std::endl;
             }
@@ -80,25 +88,31 @@ void CAssessment::PerformAction(CPlayer &player) {
 }
 
 
-CAssessment::CAssessment(int i, const std::string basicString) {
+CAssessment::CAssessment(int i, const std::string basicString)
+{
 
 }
 
-const std::vector<CPlayer *> &CAssessment::GetCompletedPlayers() const {
+const std::vector<CPlayer *> &CAssessment::GetCompletedPlayers() const
+{
     return completedPlayers;
 }
 
-void CAssessment::setCompletedPlayers(const std::vector<CPlayer *> &completedPlayers) {
+void CAssessment::setCompletedPlayers(const std::vector<CPlayer *> &completedPlayers)
+{
     CAssessment::completedPlayers = completedPlayers;
 }
 
-void CAssessment::AddCompletedPlayer(CPlayer* player){
+void CAssessment::AddCompletedPlayer(CPlayer *player)
+{
     completedPlayers.push_back(player);
 }
 
-void CAssessment::RemoveCompletedPlayer(CPlayer* player) {
+void CAssessment::RemoveCompletedPlayer(CPlayer *player)
+{
     auto it = std::find(completedPlayers.begin(), completedPlayers.end(), player);
-    if (it != completedPlayers.end()) {
+    if (it != completedPlayers.end())
+    {
         completedPlayers.erase(it);
     }
 }
